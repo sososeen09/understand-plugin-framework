@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
                 // 因为Activity对象的startActivity使用的并不是ContextImpl的mInstrumentation
                 // 而是自己的mInstrumentation, 如果你需要这样, 可以自己Hook
                 // 比较简单, 直接替换这个Activity的此字段即可.
-                getApplicationContext().startActivity(intent);
+                /*getApplicationContext().*/startActivity(intent);
             }
         });
     }
@@ -49,6 +49,8 @@ public class MainActivity extends Activity {
         try {
             // 在这里进行Hook
             HookHelper.attachContext();
+            // Hook Activity中的Instrumentation
+            HookHelper.hookInnerInstrumentation(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
